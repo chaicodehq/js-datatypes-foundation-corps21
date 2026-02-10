@@ -1,3 +1,4 @@
+import { checkArrays, checkNumbers } from "./utils/utils.js"
 /**
  * 🏪 Kiryana Store Bill - Array Transform
  *
@@ -52,20 +53,38 @@
  */
 export function getItemNames(items) {
   // Your code here
+  if (checkArrays(items)) return []
+  return items.map((item) => item?.name)
 }
 
 export function getAffordableItems(items, maxPrice) {
   // Your code here
+  if (checkArrays(items) || checkNumbers(maxPrice)) return []
+  return items.filter(item => item?.price <= maxPrice)
 }
 
 export function calculateTotal(items) {
   // Your code here
+  if (checkArrays(items)) return 0
+  return items.reduce((acc, curr) => {
+    acc += curr?.price * curr?.qty
+    return acc
+  }, 0)
 }
 
 export function sortByPrice(items, ascending) {
   // Your code here
+  if (checkArrays(items)) return []
+  if (ascending) {
+    return [...items].sort((item1, item2) => item1?.price - item2?.price)
+  } else {
+    return [...items].sort((item1, item2) => item2?.price - item1?.price)
+  }
 }
 
 export function formatBill(items) {
   // Your code here
+  if (checkArrays(items)) return ""
+  const strs = items.map((item) => `${item?.name} x ${item?.qty} = Rs.${item?.qty * item?.price}`)
+  return strs.join("\n");
 }

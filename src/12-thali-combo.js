@@ -1,3 +1,4 @@
+import { checkArrays, checkNumbers, checkObjects, checkStrings } from "./utils/utils.js"
 /**
  * 🍽️ Thali Combo Platter - Mixed Methods Capstone
  *
@@ -54,16 +55,42 @@
  */
 export function createThaliDescription(thali) {
   // Your code here
+  if (checkObjects(thali) || checkStrings(thali?.name) || checkArrays(thali?.items) || checkNumbers(thali?.price) || thali?.isVeg === undefined) return ""
+  return `${thali.name.toUpperCase()} (${thali.isVeg ? "Veg" : "Non-Veg"}) - Items: ${thali.items.join(", ")} - Rs.${thali.price.toFixed(2)}`
 }
 
 export function getThaliStats(thalis) {
   // Your code here
+  if (checkArrays(thalis)) return null
+  const totalThalis = thalis.length;
+  const vegCount = thalis.filter(thali => thali.isVeg).length
+  const nonVegCount = thalis.filter(thali => !thali.isVeg).length
+  const { costliest, cheapest, totalPrice } = thalis.reduce((acc, curr) => {
+    acc.costliest = Math.max(acc.costliest, curr.price)
+    acc.cheapest = Math.min(acc.cheapest, curr.price)
+    acc.totalPrice += curr.price
+
+    return acc
+  }, { costliest: -Infinity, cheapest: Infinity, totalPrice: 0 })
+  const names = thalis.map(thali => thali.name)
+  return { totalThalis, vegCount, nonVegCount, costliest, cheapest, names, avgPrice: (totalPrice / thalis.length).toFixed(2) }
 }
 
 export function searchThaliMenu(thalis, query) {
   // Your code here
+  if(checkArrays(thalis) || checkStrings(query)) return []
+  const result = thalis.filter(thali => {
+    return thali.name.toLowerCase().includes(query.toLowerCase()) || thali.items.some(item => item.toLowerCase().includes(query.toLowerCase()))
+  }) 
+
+  return result
 }
 
 export function generateThaliReceipt(customerName, thalis) {
   // Your code here
+  if(checkStrings(customerName) || checkArrays(thalis)) return ""
+  return `THALI RECEIPT\n---\nCustomer: ${customerName.toUpperCase()}\n${(thalis.map(thali => `- ${thali.name} x Rs.${thali.price}`)).join("\n")}\n---\nTotal: Rs.${thalis.reduce((acc, curr) => {
+    acc += curr.price
+    return acc
+  }, 0)}\nItems: ${thalis.length}`
 }

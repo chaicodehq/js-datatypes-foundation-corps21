@@ -1,3 +1,5 @@
+import { checkObjects, checkStrings } from "./utils/utils";
+
 /**
  * 🏠 Ration Card Registry - Object Basics
  *
@@ -54,20 +56,33 @@
  */
 export function getFamilyNames(registry) {
   // Your code here
+  if (checkObjects(registry)) return []
+  return Object.keys(registry)
 }
 
 export function getAllFamilies(registry) {
   // Your code here
+  if (checkObjects(registry)) return []
+  return Object.values(registry)
 }
 
 export function getRationCardEntries(registry) {
   // Your code here
+  if (checkObjects(registry)) return []
+  return Object.entries(registry)
 }
 
 export function hasRationCard(registry, cardId) {
   // Your code here
+  if (checkObjects(registry) || checkStrings(cardId)) return false
+  return registry.hasOwnProperty(cardId)
 }
 
 export function removeRationCard(registry, cardId) {
   // Your code here
+  if (checkObjects(registry) || checkStrings(cardId)) return false
+  if (registry.hasOwnProperty(cardId)) {
+    delete registry[cardId]
+    return true;
+  } else return false
 }

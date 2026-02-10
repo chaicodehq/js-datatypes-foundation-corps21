@@ -1,3 +1,5 @@
+import { checkArrays, checkStrings } from "./utils/utils";
+
 /**
  * 🚂 Train Coach Finder - Array Search & Check
  *
@@ -49,20 +51,30 @@
  */
 export function findPassenger(passengers, name) {
   // Your code here
+  if (checkArrays(passengers) || checkStrings(name)) return undefined
+  return passengers.find((obj) => obj?.name?.toLowerCase() === name.toLowerCase())
 }
 
 export function getPassengerIndex(passengers, name) {
   // Your code here
+  if (checkArrays(passengers) || checkStrings(name)) return -1
+  return passengers.findIndex((obj) => obj?.name?.toLowerCase() === name.toLowerCase())
 }
 
 export function isAnyWaitlisted(passengers) {
   // Your code here
+  if (checkArrays(passengers)) return false
+  return passengers.some((obj) => obj?.status === "waitlisted")
 }
 
 export function areAllConfirmed(passengers) {
   // Your code here
+  if (checkArrays(passengers)) return false
+  return passengers.every(obj => obj?.status === "confirmed")
 }
 
 export function getWaitlistedPassengers(passengers) {
   // Your code here
+  if (checkArrays(passengers)) return []
+  return passengers.filter((obj) => obj?.status === "waitlisted")
 }

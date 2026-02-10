@@ -1,3 +1,4 @@
+import { checkStrings } from "./utils/utils"
 /**
  * ☕ Chai Tapri Order System - String Basics
  *
@@ -47,20 +48,42 @@
  */
 export function getChaiOrderLength(order) {
   // Your code here
+  if (checkStrings(order)) return -1
+  const trimmedOrder = order.trim()
+  return trimmedOrder.length
 }
 
 export function shoutChaiOrder(order) {
   // Your code here
+  if (checkStrings(order)) return ""
+  const trimmedOrder = order.trim()
+  if (trimmedOrder.length === 0) return ""
+  else return trimmedOrder.toUpperCase()
 }
 
 export function whisperChaiOrder(order) {
   // Your code here
+  if (checkStrings(order)) return ""
+  const trimmedOrder = order.trim()
+  if (trimmedOrder.length === 0) return ""
+  else return trimmedOrder.toLowerCase()
 }
 
 export function hasSpecialIngredient(order, ingredient) {
   // Your code here
+  if(checkStrings(order, ingredient)) return false
+  const lowerCasedAndTrimmedOrder = order.trim().toLowerCase()
+  const lowerCasedAndTrimmedIngredient = ingredient.trim().toLowerCase()
+  if(lowerCasedAndTrimmedOrder.length === 0 || lowerCasedAndTrimmedIngredient.length === 0) return false
+
+  return lowerCasedAndTrimmedOrder.includes(lowerCasedAndTrimmedIngredient)
 }
 
 export function getFirstAndLastChar(order) {
   // Your code here
+  if(checkStrings(order)) return null
+  const trimmedOrder = order.trim()
+  if(trimmedOrder.length === 0) return null
+
+  return {first: trimmedOrder.at(0), last: trimmedOrder.at(-1)}
 }

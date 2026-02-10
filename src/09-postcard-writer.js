@@ -1,3 +1,5 @@
+import { checkStrings } from "./utils/utils";
+
 /**
  * 💌 Indian Postcard Writer - String Advanced
  *
@@ -53,20 +55,35 @@
  */
 export function writePostcard(sender, receiver, message) {
   // Your code here
+  if (checkStrings(sender, receiver, message)) return ""
+  const trimmedSender = sender.trim()
+  const trimmedReciever = receiver.trim()
+  const trimmedMessage = message.trim();
+  if (checkStrings(trimmedMessage, trimmedReciever, trimmedSender)) return ""
+  return `Priy ${trimmedReciever},\n\n${trimmedMessage}\n\nAapka/Aapki,\n${trimmedSender}`
 }
 
 export function isValidPincode(code) {
   // Your code here
+  if(checkStrings(code) || code.startsWith("0") || code.length !== 6 || !code.match(/^\d+$/)) return false
+  return true
 }
 
 export function formatPostcardField(label, value, width) {
   // Your code here
+  if(checkStrings(label, value)) return ""
+  return `${label.padEnd(width ?? 12)}: ${value}`
 }
 
 export function isFromState(address, stateCode) {
   // Your code here
+  if(checkStrings(address, stateCode)) return false
+  return address.endsWith(stateCode)
 }
 
 export function countVowels(message) {
   // Your code here
+  if(checkStrings(message)) return 0;
+  const match = message.match(/[aeiouAEIOU]/g);
+  return match?.length ?? 0
 }

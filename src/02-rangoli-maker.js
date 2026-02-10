@@ -1,3 +1,4 @@
+import { checkNumbers, checkStrings } from "./utils/utils"
 /**
  * 🎨 Rangoli Border Maker - String Transform
  *
@@ -47,20 +48,32 @@
  */
 export function repeatPattern(pattern, times) {
   // Your code here
+  if(checkStrings(pattern) || checkNumbers(times)) return ""
+  return pattern.repeat(times)
 }
 
 export function extractRangoliCenter(design, start, end) {
   // Your code here
+  if(checkStrings(design)|| checkNumbers(start, end)) return ""
+  return design.slice(start, end)
 }
 
 export function splitAndJoinRangoli(colorString, oldSep, newSep) {
   // Your code here
+  if(checkStrings(colorString, oldSep, newSep)) return ""
+  return colorString.split(oldSep).join(newSep)
 }
 
 export function replaceRangoliColor(design, oldColor, newColor) {
   // Your code here
+  if(checkStrings(design, oldColor, newColor)) return ""
+  return design.replaceAll(oldColor, newColor)
 }
 
 export function makeRangoliBorder(char, length) {
   // Your code here
+  if(checkNumbers(length) || checkStrings(char)) return ""
+  const times = Math.ceil(length / char.length);
+
+  return char.repeat(times).slice(0, length)
 }

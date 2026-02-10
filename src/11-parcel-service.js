@@ -1,3 +1,4 @@
+import { checkStrings } from "./utils/utils.js"
 /**
  * 📮 Dak Ghar Parcel Service - JSON & Type Conversion
  *
@@ -53,20 +54,35 @@
  */
 export function parcelToJSON(parcel) {
   // Your code here
+  try {
+    return JSON.stringify(parcel) ?? ""
+  } catch {
+    return ""
+  }
 }
 
 export function jsonToParcel(jsonString) {
   // Your code here
+  try {
+    if(checkStrings(jsonString)) return null
+    return JSON.parse(jsonString)
+  } catch {
+    return null
+  }
 }
 
 export function convertToString(value) {
   // Your code here
+  return String(value)
 }
 
 export function convertToNumber(value) {
   // Your code here
+  return Number(value)
 }
 
 export function stringToChars(str) {
   // Your code here
+  if (checkStrings(str)) return []
+  return Array.from(str)
 }

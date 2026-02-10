@@ -1,3 +1,4 @@
+import {checkObjects} from "./utils/utils.js"
 /**
  * 🍃 Paan Shop Menu - Object Transform
  *
@@ -47,16 +48,28 @@
  */
 export function createPaanOrder(basePaan, customizations) {
   // Your code here
+  if(checkObjects(basePaan)) return {}
+  if(checkObjects(customizations)) return Object.assign({}, basePaan)
+  return Object.assign({},basePaan, customizations)
 }
 
 export function freezeMenu(menu) {
   // Your code here
+  if(checkObjects(menu)) return {}
+  return Object.freeze(menu)
 }
 
 export function updatePrices(menu, increase) {
   // Your code here
+  if(checkObjects(menu) || typeof increase !== "number") return {}
+  const entries = Object.entries(menu)
+  const newEntries = entries.map(([key, value]) => [key, value + increase])
+  return Object.fromEntries(newEntries)
 }
 
 export function mergeDailySpecials(regularMenu, specialsMenu) {
   // Your code here
+  const obj1 = checkObjects(regularMenu) ? {} : regularMenu
+  const obj2 = checkObjects(specialsMenu) ? {} : specialsMenu
+  return {...obj1, ...obj2}
 }

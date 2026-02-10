@@ -1,3 +1,5 @@
+import { checkArrays, checkStrings } from "./utils/utils"
+
 /**
  * 🥬 Sabzi Mandi Shopping Cart - Array Basics
  *
@@ -49,20 +51,40 @@
  */
 export function addToCart(cart, item) {
   // Your code here
+  if(checkArrays(cart)) return -1
+  if(checkStrings(item)) return cart.length
+  cart.push(item)
+  return cart.length
 }
 
 export function addUrgentItem(cart, item) {
   // Your code here
+  if(checkArrays(cart)) return []
+  if(!checkStrings(item)) cart.unshift(item)
+  return cart;
 }
 
 export function removeLastItem(cart) {
   // Your code here
+  if(checkArrays(cart)) return undefined
+  return cart.pop()
 }
 
 export function isInCart(cart, item) {
   // Your code here
+  if(checkArrays(cart)) return false
+  return cart.includes(item)
 }
 
 export function mergeCarts(cart1, cart2) {
   // Your code here
+  let updatedCart1 = cart1
+  let updatedCart2 = cart2
+  if(checkArrays(cart1)) {
+    updatedCart1 = []
+  }
+  if(checkArrays(cart2)) {
+    updatedCart2 = []
+  }
+  return updatedCart1.concat(updatedCart2)
 }
